@@ -14,7 +14,7 @@ class Position {
 	public:
 		enum Grid { RT90, WGS84, SWEREF99, UNDEFINED};
 		Position() : m_latitude(0.0), m_longitude(0.0), m_gridFormat(UNDEFINED) {};
-		Position(Grid format) : m_latitude(0.0), m_longitude(0.0), m_gridFormat(format) {}
+		explicit Position(Grid format) : m_latitude(0.0), m_longitude(0.0), m_gridFormat(format) {}
 		Position(double lat, double lon, Grid format) : m_latitude(lat), m_longitude(lon), m_gridFormat(format) {}
 		double getLatitude() const { return m_latitude; }
 		double getLongitude() const { return m_longitude; }
