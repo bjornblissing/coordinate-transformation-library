@@ -12,6 +12,7 @@
 #include <iomanip>
 #include <limits> // std::numeric_limits
 #include <algorithm> // std::replace
+#include <iterator>
 #include <sstream>
 #include <vector>
 
