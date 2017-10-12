@@ -26,7 +26,7 @@ class WGS84Position : public Position {
 		* Create a new WGS84 position from a String containing both latitude
 		* and longitude. The string is parsed based on the supplied format.
 		*/
-		WGS84Position(std::string positionString, WGS84Format format);
+		WGS84Position(const std::string& positionString, WGS84Format format);
 		/**
 		* Set the latitude value from a string. The string is parsed based on given format.
 		*/
@@ -44,10 +44,10 @@ class WGS84Position : public Position {
 		*/
 		std::string longitudeToString(WGS84Format format);
 	protected:
-		static std::string convToDmString(double value, std::string positiveValue, std::string negativeValue);
-		static std::string convToDmsString(double value, std::string positiveValue, std::string negativeValue);
-		static double parseValueFromDmString(std::string value, std::string positiveChar);
-		static double parseValueFromDmsString(std::string value, std::string positiveChar);
+		static std::string convToDmString(double value, const std::string& positiveValue, const std::string& negativeValue);
+		static std::string convToDmsString(double value, const std::string& positiveValue, const std::string& negativeValue);
+		static double parseValueFromDmString(std::string value, const std::string& positiveChar);
+		static double parseValueFromDmsString(std::string value, const std::string& positiveChar);
 };
 
 #endif // _COORDINATE_WGS84POSITION_H_

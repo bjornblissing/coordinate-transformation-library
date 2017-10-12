@@ -17,7 +17,7 @@
 #include <vector>
 
 
-WGS84Position::WGS84Position(std::string positionString, WGS84Format format) : Position(Grid::WGS84)
+WGS84Position::WGS84Position(const std::string& positionString, WGS84Format format) : Position(Grid::WGS84)
 {
 	if (format == WGS84Format::Degrees) {
 		std::string trimmedString = trim(positionString);
@@ -106,7 +106,7 @@ std::string WGS84Position::longitudeToString(WGS84Format format)
 	}
 }
 
-std::string WGS84Position::convToDmString(double value, std::string positiveValue, std::string negativeValue)
+std::string WGS84Position::convToDmString(double value, const std::string& positiveValue, const std::string& negativeValue)
 {
 	if (value == std::numeric_limits<double>::min()) {
 		return "";
@@ -130,7 +130,7 @@ std::string WGS84Position::convToDmString(double value, std::string positiveValu
 	return dmss.str();
 }
 
-std::string WGS84Position::convToDmsString(double value, std::string positiveValue, std::string negativeValue)
+std::string WGS84Position::convToDmsString(double value, const std::string& positiveValue, const std::string& negativeValue)
 {
 	if (value == std::numeric_limits<double>::min()) {
 		return "";
@@ -157,7 +157,7 @@ std::string WGS84Position::convToDmsString(double value, std::string positiveVal
 	return dmsss.str();
 }
 
-double WGS84Position::parseValueFromDmString(std::string value, std::string positiveChar)
+double WGS84Position::parseValueFromDmString(std::string value, const std::string& positiveChar)
 {
 	double retVal = 0;
 
@@ -188,7 +188,7 @@ double WGS84Position::parseValueFromDmString(std::string value, std::string posi
 	return retVal;
 }
 
-double WGS84Position::parseValueFromDmsString(std::string value, std::string positiveChar)
+double WGS84Position::parseValueFromDmsString(std::string value, const std::string& positiveChar)
 {
 	double retVal = 0;
 

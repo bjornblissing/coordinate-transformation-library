@@ -24,7 +24,7 @@ class GaussKreuger {
 		// Bessel-variants should only be used if lat/long are given as
 		// RT90-lat/long based on the Bessel ellipsoide (from old maps).
 		// Parameter: projection (std::string). Must match if-statement.
-		void swedish_params(std::string projection);
+		void swedish_params(const std::string& projection);
 		// Conversion from geodetic coordinates to grid coordinates.
 		Coordinate geodetic_to_grid(double latitude, double longitude) const;
 		// Conversion from grid coordinates to geodetic coordinates.

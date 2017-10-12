@@ -16,7 +16,7 @@
 #include <limits>
 
 
-void GaussKreuger::swedish_params(std::string projection)
+void GaussKreuger::swedish_params(const std::string& projection)
 {
 	// RT90 parameters, GRS 80 ellipsoid.
 	if (projection == "rt90_7.5_gon_v") {
