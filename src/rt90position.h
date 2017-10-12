@@ -51,7 +51,7 @@ class RT90Position : public Position {
 		}
 
 	protected:
-		std::string getProjectionString(RT90Projection projection);
+		static std::string getProjectionString(RT90Projection projection);
 		RT90Projection m_projection;
 };
 #endif //_COORDINATE_RT90POSITION_H_

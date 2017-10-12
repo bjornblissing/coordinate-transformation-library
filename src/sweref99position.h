@@ -57,7 +57,7 @@ class SWEREF99Position : public Position {
 		}
 
 	protected:
-		std::string getProjectionString(SWEREFProjection projection);
+		static std::string getProjectionString(SWEREFProjection projection);
 		SWEREFProjection m_projection;
 };
 
