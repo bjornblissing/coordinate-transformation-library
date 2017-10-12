@@ -15,7 +15,7 @@ SWEREF99Position::SWEREF99Position(WGS84Position position, SWEREFProjection proj
 	Coordinate lat_lon = gkProjection.geodetic_to_grid(position.getLatitude(), position.getLongitude());
 	m_latitude = lat_lon.x;
 	m_longitude = lat_lon.y;
-	projection = projection;
+	m_projection = projection;
 }
 
 WGS84Position SWEREF99Position::toWGS84()
