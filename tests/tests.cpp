@@ -11,6 +11,7 @@
 #include "rt90position.h"
 #include "sweref99position.h"
 
+using namespace vti;
 
 bool compareWithEpsilon(double a, double b, double epsilon)
 {

@@ -16,6 +16,7 @@
 #include <sstream>
 #include <vector>
 
+namespace vti {
 
 WGS84Position::WGS84Position(const std::string& positionString, WGS84Format format) : Position(Grid::WGS84)
 {
@@ -223,3 +224,5 @@ double WGS84Position::parseValueFromDmsString(std::string value, const std::stri
 
 	return retVal;
 }
+
+} // namespace vti

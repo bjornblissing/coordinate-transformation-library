@@ -15,6 +15,7 @@
 
 #include <limits>
 
+namespace vti {
 
 void GaussKreuger::swedish_params(const std::string& projection)
 {
@@ -149,7 +150,7 @@ void GaussKreuger::sweref99_params()
 	m_false_easting = 150000.0;
 }
 
-Coordinate GaussKreuger::geodetic_to_grid(double latitude, double longitude) const
+GaussKreuger::Coordinate GaussKreuger::geodetic_to_grid(double latitude, double longitude) const
 {
 	Coordinate x_y;
 	// Prepare ellipsoid-based stuff.
@@ -193,7 +194,7 @@ Coordinate GaussKreuger::geodetic_to_grid(double latitude, double longitude) con
 	return x_y;
 }
 
-Coordinate GaussKreuger::grid_to_geodetic(double x, double y) const
+GaussKreuger::Coordinate GaussKreuger::grid_to_geodetic(double x, double y) const
 {
 	Coordinate lat_lon;
 
@@ -242,3 +243,5 @@ Coordinate GaussKreuger::grid_to_geodetic(double x, double y) const
 	lat_lon.y = lon_radian * 180.0 / M_PI;
 	return lat_lon;
 }
+
+} // namespace vti

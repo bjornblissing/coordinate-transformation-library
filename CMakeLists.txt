@@ -1,57 +1,94 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
-SET(CMAKE_ECLIPSE_GENERATE_SOURCE_PROJECT TRUE)
-SET(CMAKE_ECLIPSE_GENERATE_LINKED_RESOURCES FALSE)
+cmake_minimum_required(VERSION 3.5)
 
-PROJECT(coordinate-transformation-library)
+project(coordinate-transformation-library VERSION 1.0)
 
 # Enable CTest
-ENABLE_TESTING()
+enable_testing()
 
-SET(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}" ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+set(LIBRARY_NAME coordinate-transformation)
 
-# Show relative paths options
-OPTION(CMAKE_USE_RELATIVE_PATHS "If true, cmake will use relative paths in makefiles and projects." ON)
+# Target source files
+set(LIBRARY_SOURCES
+  src/gausskreuger.cpp
+  src/position.cpp
+  src/rt90position.cpp
+  src/sweref99position.cpp
+  src/wgs84position.cpp
+)
 
-#Solution
-SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
-SET(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
-
+# Target headerfiles
+SET(LIBRARY_HEADERS
+  include/gausskreuger.h
+  include/position.h
+  include/rt90position.h
+  include/sweref99position.h
+  include/wgs84position.h
+)
 
 ###############################################################################
 # Compiler Options
 ################################################################################
-IF(WIN32)
-	# Make sure we use minimal windows.h library without min max macros
-	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /D \"WIN32_LEAN_AND_MEAN\"")
-	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /D \"NOMINMAX\"")
-	
-    IF(MSVC80)
-		# Detech 64-bit portability Issues
-		SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Wp64")
-    ENDIF(MSVC80)
-	
-	OPTION(MULTI_PROCESSOR_COMPILATION "Use multiple processors when compiling" ON)
-	IF(MULTI_PROCESSOR_COMPILATION)
-		# Set multi processor build
-		SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
-	ENDIF(MULTI_PROCESSOR_COMPILATION)
-	# Set warnings to level 4 
-	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
-	IF (WARNINGS_AS_ERRORS)
-		SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /WX")
-	ENDIF (WARNINGS_AS_ERRORS)
-ENDIF(WIN32)
 
-IF(UNIX)
-	IF(CMAKE_COMPILER_IS_GNUCC)
-		ADD_DEFINITIONS(-Wall -ansi -pedantic -Wextra)
-		IF (WARNINGS_AS_ERRORS)
-			ADD_DEFINITIONS(-Werror)		
-		ENDIF(WARNINGS_AS_ERRORS)
-	ENDIF(CMAKE_COMPILER_IS_GNUCC)
-ENDIF(UNIX)
+list(APPEND MSVC_OPTIONS /W4) # Warning level 4
+list(APPEND MSVC_OPTIONS /WX) # Warnings as errors
 
-###############################################################################
-# Compile subdirectory
-################################################################################
-ADD_SUBDIRECTORY(src)
+list(APPEND GCC_OPTIONS -Wall)     # All warnings
+list(APPEND GCC_OPTIONS -ansi)     # All warnings
+list(APPEND GCC_OPTIONS -pedantic) # All warnings
+list(APPEND GCC_OPTIONS -Wextra)   # Add extra warings
+
+list(APPEND CLANG_OPTIONS -Wall)     # All warnings
+list(APPEND CLANG_OPTIONS -Wextra)   # Add extra warings
+
+add_library(${LIBRARY_NAME} ${LIBRARY_SOURCES} ${LIBRARY_HEADERS})
+
+target_compile_options(${LIBRARY_NAME} PRIVATE 
+  $<$<CXX_COMPILER_ID:MSVC>:${MSVC_OPTIONS}>
+  $<$<CXX_COMPILER_ID:GNU>:${GCC_OPTIONS}>
+  $<$<CXX_COMPILER_ID:Clang>:${CLANG_OPTIONS}>
+)
+
+target_compile_features(${LIBRARY_NAME} PUBLIC cxx_auto_type cxx_strong_enums)
+
+target_include_directories(${LIBRARY_NAME} PUBLIC 
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/>
+  $<INSTALL_INTERFACE:include> 
+)
+
+
+#####################################################################
+# Export library
+#####################################################################
+
+set(LIBRARY_EXPORT_NAME coordinate-transformation-targets)
+
+
+set_target_properties(${LIBRARY_NAME} PROPERTIES PUBLIC_HEADER "${LIBRARY_HEADERS}")
+
+install(TARGETS ${LIBRARY_NAME} EXPORT ${LIBRARY_EXPORT_NAME}
+  LIBRARY DESTINATION lib
+  ARCHIVE DESTINATION lib
+  RUNTIME DESTINATION bin
+  PUBLIC_HEADER DESTINATION include
+)
+
+install(EXPORT ${LIBRARY_EXPORT_NAME}
+  FILE ${LIBRARY_EXPORT_NAME}.cmake
+  NAMESPACE VTI::
+  DESTINATION lib/cmake/${LIBRARY_NAME}
+)
+
+
+#####################################################################
+# Define tests
+#####################################################################
+
+set(TEST_NAME tests)
+add_executable(${TEST_NAME} tests/tests.cpp)
+target_link_libraries(${TEST_NAME} PRIVATE ${LIBRARY_NAME})
+
+add_test(RT90toWGS84 ${TEST_NAME} 1)
+add_test(WGS84ToRT90 ${TEST_NAME} 2)
+add_test(WGS84ToSweref ${TEST_NAME} 3)
+add_test(SwerefToWGS84 ${TEST_NAME} 4)
+add_test(WGS84Parse ${TEST_NAME} 5)

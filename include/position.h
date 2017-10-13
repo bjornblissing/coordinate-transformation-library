@@ -10,9 +10,11 @@
 
 #include <string>
 
-class Position {
+namespace vti {
+
+	class Position {
 	public:
-		enum class Grid { RT90, WGS84, SWEREF99, UNDEFINED};
+		enum class Grid { RT90, WGS84, SWEREF99, UNDEFINED };
 		Position() : m_latitude(0.0), m_longitude(0.0), m_gridFormat(Grid::UNDEFINED) {};
 		explicit Position(Grid format) : m_latitude(0.0), m_longitude(0.0), m_gridFormat(format) {}
 		Position(double lat, double lon, Grid format) : m_latitude(lat), m_longitude(lon), m_gridFormat(format) {}
@@ -24,6 +26,8 @@ class Position {
 		Grid m_gridFormat;
 
 		static std::string trim(const std::string& str, const std::string& whitespace = " \t");
-};
+	};
+
+} // namespace vti
 
 #endif //_COORDINATE_POSITION_H_

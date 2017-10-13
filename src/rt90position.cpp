@@ -8,11 +8,13 @@
 #include "rt90position.h"
 #include "gausskreuger.h"
 
+namespace vti {
+
 RT90Position::RT90Position(WGS84Position position, RT90Projection rt90projection) : Position(Grid::RT90)
 {
 	GaussKreuger gkProjection;
 	gkProjection.swedish_params(getProjectionString(rt90projection));
-	Coordinate lat_lon = gkProjection.geodetic_to_grid(position.getLatitude(), position.getLongitude());
+	GaussKreuger::Coordinate lat_lon = gkProjection.geodetic_to_grid(position.getLatitude(), position.getLongitude());
 	m_latitude = lat_lon.x;
 	m_longitude = lat_lon.y;
 	m_projection = rt90projection;
@@ -22,7 +24,7 @@ WGS84Position RT90Position::toWGS84()
 {
 	GaussKreuger gkProjection;
 	gkProjection.swedish_params(getProjectionString());
-	Coordinate lat_lon = gkProjection.grid_to_geodetic(m_latitude, m_longitude);
+	GaussKreuger::Coordinate lat_lon = gkProjection.grid_to_geodetic(m_latitude, m_longitude);
 	WGS84Position newPos(lat_lon.x, lat_lon.y);
 	return newPos;
 }
@@ -63,3 +65,5 @@ std::string RT90Position::getProjectionString(RT90Projection projection)
 
 	return retVal;
 }
+
+} // namespace vti

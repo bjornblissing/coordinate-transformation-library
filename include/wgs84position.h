@@ -10,6 +10,7 @@
 
 #include "position.h"
 
+namespace vti {
 
 class WGS84Position : public Position {
 	public:
@@ -49,5 +50,7 @@ class WGS84Position : public Position {
 		static double parseValueFromDmString(std::string value, const std::string& positiveChar);
 		static double parseValueFromDmsString(std::string value, const std::string& positiveChar);
 };
+
+} // namespace vti
 
 #endif // _COORDINATE_WGS84POSITION_H_

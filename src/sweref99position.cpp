@@ -8,11 +8,13 @@
 #include "sweref99position.h"
 #include "gausskreuger.h"
 
+namespace vti {
+
 SWEREF99Position::SWEREF99Position(WGS84Position position, SWEREFProjection projection) : Position(Grid::SWEREF99)
 {
 	GaussKreuger gkProjection;
 	gkProjection.swedish_params(getProjectionString(projection));
-	Coordinate lat_lon = gkProjection.geodetic_to_grid(position.getLatitude(), position.getLongitude());
+	GaussKreuger::Coordinate lat_lon = gkProjection.geodetic_to_grid(position.getLatitude(), position.getLongitude());
 	m_latitude = lat_lon.x;
 	m_longitude = lat_lon.y;
 	m_projection = projection;
@@ -22,7 +24,7 @@ WGS84Position SWEREF99Position::toWGS84()
 {
 	GaussKreuger gkProjection;
 	gkProjection.swedish_params(getProjectionString(m_projection));
-	Coordinate lat_lon = gkProjection.grid_to_geodetic(m_latitude, m_longitude);
+	GaussKreuger::Coordinate lat_lon = gkProjection.grid_to_geodetic(m_latitude, m_longitude);
 	WGS84Position newPos(lat_lon.x, lat_lon.y);
 	return newPos;
 }
@@ -91,3 +93,5 @@ std::string SWEREF99Position::getProjectionString(SWEREFProjection projection)
 
 	return retVal;
 }
+
+} // namespace vti

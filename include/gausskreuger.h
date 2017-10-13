@@ -10,14 +10,16 @@
 
 #include <string>
 
-struct Coordinate {
-	Coordinate() : x(0.0), y(0.0) {}
-	double x;
-	double y;
-};
+namespace vti {
 
-class GaussKreuger {
+	class GaussKreuger {
 	public:
+		struct Coordinate {
+			Coordinate() : x(0.0), y(0.0) {}
+			double x;
+			double y;
+		};
+
 		// Parameters for RT90 and SWEREF99TM.
 		// Note: Parameters for RT90 are choosen to eliminate the
 		// differences between Bessel and GRS80-ellipsoides.
@@ -40,6 +42,8 @@ class GaussKreuger {
 		double m_scale; // Scale on central meridian.
 		double m_false_northing; // Offset for origo.
 		double m_false_easting; // Offset for origo.
-};
+	};
+
+} // namespace vti
 
 #endif // _COORDINATE_GAUSSKREUGER_H_

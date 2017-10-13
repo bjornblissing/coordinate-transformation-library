@@ -10,7 +10,9 @@
 
 #include "wgs84position.h"
 
-class RT90Position : public Position {
+namespace vti {
+
+	class RT90Position : public Position {
 	public:
 		enum class RT90Projection {
 			rt90_7_5_gon_v,
@@ -53,5 +55,8 @@ class RT90Position : public Position {
 	protected:
 		static std::string getProjectionString(RT90Projection projection);
 		RT90Projection m_projection;
-};
+	};
+
+} // namespace vti
+
 #endif //_COORDINATE_RT90POSITION_H_

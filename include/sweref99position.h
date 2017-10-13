@@ -10,6 +10,8 @@
 
 #include "wgs84position.h"
 
+namespace vti {
+
 class SWEREF99Position : public Position {
 	public:
 		enum class SWEREFProjection {
@@ -60,5 +62,7 @@ class SWEREF99Position : public Position {
 		static std::string getProjectionString(SWEREFProjection projection);
 		SWEREFProjection m_projection;
 };
+
+}
 
 #endif // _COORDINATE_SWEREF99POSITION_H_
