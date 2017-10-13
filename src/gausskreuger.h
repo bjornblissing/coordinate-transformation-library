@@ -11,7 +11,7 @@
 #include <string>
 
 struct Coordinate {
-	Coordinate() : x(0), y(0) {}
+	Coordinate() : x(0.0), y(0.0) {}
 	double x;
 	double y;
 };
