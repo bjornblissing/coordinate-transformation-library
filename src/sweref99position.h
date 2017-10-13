@@ -12,7 +12,7 @@
 
 class SWEREF99Position : public Position {
 	public:
-		enum SWEREFProjection {
+		enum class SWEREFProjection {
 			sweref_99_tm,
 			sweref_99_12_00,
 			sweref_99_13_30,

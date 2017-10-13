@@ -12,7 +12,7 @@
 
 class RT90Position : public Position {
 	public:
-		enum RT90Projection {
+		enum class RT90Projection {
 			rt90_7_5_gon_v,
 			rt90_5_0_gon_v,
 			rt90_2_5_gon_v,

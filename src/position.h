@@ -12,8 +12,8 @@
 
 class Position {
 	public:
-		enum Grid { RT90, WGS84, SWEREF99, UNDEFINED};
-		Position() : m_latitude(0.0), m_longitude(0.0), m_gridFormat(UNDEFINED) {};
+		enum class Grid { RT90, WGS84, SWEREF99, UNDEFINED};
+		Position() : m_latitude(0.0), m_longitude(0.0), m_gridFormat(Grid::UNDEFINED) {};
 		explicit Position(Grid format) : m_latitude(0.0), m_longitude(0.0), m_gridFormat(format) {}
 		Position(double lat, double lon, Grid format) : m_latitude(lat), m_longitude(lon), m_gridFormat(format) {}
 		double getLatitude() const { return m_latitude; }

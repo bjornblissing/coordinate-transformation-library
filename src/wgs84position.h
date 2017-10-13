@@ -13,7 +13,7 @@
 
 class WGS84Position : public Position {
 	public:
-		enum WGS84Format { Degrees, DegreesMinutes, DegreesMinutesSeconds };
+		enum class WGS84Format { Degrees, DegreesMinutes, DegreesMinutesSeconds };
 		/**
 		* Create a new WGS84 position with empty coordinates
 		*/
