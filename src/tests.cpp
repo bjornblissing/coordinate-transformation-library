@@ -6,6 +6,7 @@
  */
 
 #include <iostream>
+#include <cmath>
 
 #include "rt90position.h"
 #include "sweref99position.h"
