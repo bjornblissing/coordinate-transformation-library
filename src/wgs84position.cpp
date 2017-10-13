@@ -88,7 +88,7 @@ std::string WGS84Position::latitudeToString(WGS84Format format)
 		return convToDmsString(m_latitude, "N", "S");
 	} else {
 		std::stringstream lat_ss;
-		lat_ss << std::setprecision(10) << m_latitude;
+		lat_ss << std::fixed << std::setprecision(10) << m_latitude;
 		return lat_ss.str();
 	}
 }
@@ -148,9 +148,9 @@ std::string WGS84Position::convToDmsString(double value, const std::string& posi
 	}
 
 	dmsss << " ";
-	dmsss << std::setprecision(0) << degrees;
+	dmsss << std::fixed << std::setprecision(0) << degrees;
 	dmsss << "º ";
-	dmsss << std::setprecision(0) << minutes;
+	dmsss << std::fixed << std::setprecision(0) << minutes;
 	dmsss << "' ";
 	dmsss << std::fixed << std::setprecision(5) << seconds;
 	dmsss << "\"";
