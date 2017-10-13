@@ -242,8 +242,3 @@ Coordinate GaussKreuger::grid_to_geodetic(double x, double y) const
 	lat_lon.y = lon_radian * 180.0 / M_PI;
 	return lat_lon;
 }
-
-double GaussKreuger::atanh(double value)
-{
-	return 0.5 * log((1.0 + value) / (1.0 - value));
-}

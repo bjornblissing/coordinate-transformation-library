@@ -34,8 +34,6 @@ class GaussKreuger {
 		void bessel_params();
 		void sweref99_params();
 
-		static double atanh(double value);
-
 		double m_axis; // Semi-major axis of the ellipsoid.
 		double m_flattening; // Flattening of the ellipsoid.
 		double m_central_meridian; // Central meridian for the projection.
