@@ -39,6 +39,7 @@ list(APPEND GCC_OPTIONS -Wextra)   # Add extra warings
 
 list(APPEND CLANG_OPTIONS -Wall)     # All warnings
 list(APPEND CLANG_OPTIONS -Wextra)   # Add extra warings
+list(APPEND CLANG_OPTIONS -Wno-invalid-source-encoding) # Disable the warning cause by using ANSI encoded degree sign
 
 add_library(${LIBRARY_NAME} ${LIBRARY_SOURCES} ${LIBRARY_HEADERS})
 
